@@ -26,18 +26,21 @@
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/David-Chan-Ho2/nexus-cli.git
 cd nexus-cli
 ```
 
 2. Create virtual environment:
+
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
 3. Install dependencies:
+
 ```bash
 # Using pip
 pip install -e ".[dev]"
@@ -47,12 +50,14 @@ uv pip install -e ".[dev]"
 ```
 
 4. Configure environment:
+
 ```bash
 cp .env.example .env
 # Edit .env with your API keys
 ```
 
 5. Start NEXUS:
+
 ```bash
 nexus
 ```
@@ -179,24 +184,28 @@ cp .env.example .env
 ## Implementation Status
 
 ### Phase 1: Foundation ✅ In Progress
+
 - [ ] CLI REPL interface
 - [ ] Session management
 - [ ] Core types & data structures
 - [ ] Project structure & dependencies
 
 ### Phase 2: Core Loop ⏳ Next
+
 - [ ] Agentic loop orchestrator
 - [ ] LLM provider abstraction
 - [ ] Error handling & retry logic
 - [ ] Integration tests
 
 ### Phase 3: Tools & MCP ⏳ Future
+
 - [ ] Tool registry & execution
 - [ ] MCP client manager
 - [ ] Filesystem integration
 - [ ] Web search integration
 
 ### Phase 4: RAG Server ⏳ Future
+
 - [ ] Custom RAG server
 - [ ] HyDE implementation
 - [ ] Vector DB setup
