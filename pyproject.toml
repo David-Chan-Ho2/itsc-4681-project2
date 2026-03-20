@@ -36,6 +36,9 @@ dependencies = [
     # Logging
     "python-json-logger>=2.0.0",
 
+    # Environment
+    "python-dotenv>=1.0.0",
+
     # Vector DB for Phase 4 local RAG
     "chromadb>=1.0.0",
 ]

@@ -3,6 +3,10 @@
 import os
 from typing import Optional
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 class Settings:
     """Application settings."""
@@ -14,7 +18,7 @@ class Settings:
 
     # LLM settings
     GROQ_API_KEY: Optional[str] = os.getenv("GROQ_API_KEY")
-    GROQ_MODEL = os.getenv("GROQ_MODEL", "mixtral-8x7b-32768")
+    GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
     OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
     OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "mistral")
 
