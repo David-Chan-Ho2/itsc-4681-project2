@@ -1,0 +1,29 @@
+# State Diagram
+
+The state machine below captures the runtime behavior of the CLI assistant from a single user turn through completion.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> AcceptingInput: user enters task
+    AcceptingInput --> Reasoning: agent invokes LLM
+    Reasoning --> Completed: model returns final answer
+    Reasoning --> ToolSelection: model emits tool call(s)
+    ToolSelection --> AwaitingConfirmation: manual or high-risk mode
+    ToolSelection --> ExecutingTools: auto-approved tool call
+    AwaitingConfirmation --> ExecutingTools: user approves
+    AwaitingConfirmation --> ObservingResults: user declines
+    ExecutingTools --> ObservingResults: MCP tool returns result
+    ObservingResults --> Reasoning: tool result added to context
+    Reasoning --> Failed: provider or tool error exceeds recovery limits
+    Completed --> PersistingSession: save session to disk
+    Failed --> PersistingSession: save session to disk
+    PersistingSession --> Idle: ready for next task
+    Idle --> [*]: /exit
+```
+
+## Notes
+
+- The `ObservingResults` state covers both success and failure. Tool failures still become model context so the agent can recover or explain what happened.
+- Confirmation is only a distinct state when the current execution mode demands it.
+- Persistence happens on shutdown so work can be resumed with `--session`.

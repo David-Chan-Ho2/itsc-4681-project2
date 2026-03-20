@@ -29,7 +29,9 @@ class Settings:
     # Paths
     SESSION_DIR = os.getenv("SESSION_DIR", "./nexus_sessions")
     RAG_DB_DIR = os.getenv("RAG_DB_DIR", "./rag/chroma_db")
+    RAG_SOURCE_DIR = os.getenv("RAG_SOURCE_DIR", "./fixtures/rag_docs/langchain")
     LOG_DIR = os.getenv("LOG_DIR", "./logs")
+    FILESYSTEM_ROOTS = os.getenv("FILESYSTEM_ROOTS", os.getcwd())
 
     # Timeouts
     LLM_TIMEOUT = float(os.getenv("LLM_TIMEOUT", "30.0"))
@@ -43,6 +45,10 @@ class Settings:
     # Embedding settings
     EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
     USE_LOCAL_EMBEDDINGS = os.getenv("USE_LOCAL_EMBEDDINGS", "true").lower() == "true"
+    RAG_COLLECTION_NAME = os.getenv("RAG_COLLECTION_NAME", "langchain-docs")
+    RAG_CHUNK_SIZE = int(os.getenv("RAG_CHUNK_SIZE", "900"))
+    RAG_CHUNK_OVERLAP = int(os.getenv("RAG_CHUNK_OVERLAP", "150"))
+    RAG_EMBEDDING_DIMENSION = int(os.getenv("RAG_EMBEDDING_DIMENSION", "256"))
 
     @classmethod
     def validate(cls) -> None:
@@ -54,7 +60,7 @@ class Settings:
 
         # Warn if critical keys are missing
         if not cls.GROQ_API_KEY:
-            print("⚠️  Warning: GROQ_API_KEY not set. Will fallback to Ollama.")
+            print("Warning: GROQ_API_KEY not set. Will fallback to Ollama.")
 
 
 settings = Settings()

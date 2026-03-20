@@ -71,7 +71,7 @@ class OllamaProvider(LLMProvider):
             # Tools are ignored for local inference
             if tools:
                 print(
-                    "⚠️  Note: Ollama does not support tool calling. "
+                    "Note: Ollama does not support tool calling. "
                     "Tools will be ignored."
                 )
 

@@ -1,22 +1,24 @@
 """MCP client manager for NEXUS."""
 
 import time
+from typing import Any
+
 from fastmcp import Client, FastMCP
 
-from nexus.llm.provider import ToolSchema
 from nexus.core.types import ToolResult
+from nexus.llm.provider import ToolSchema
 
 
 class MCPClientManager:
     """Manages connections to multiple MCP servers and routes tool calls."""
 
     def __init__(self):
-        self._servers: dict[str, FastMCP] = {}
+        self._servers: dict[str, Any] = {}
         self._tool_to_server: dict[str, str] = {}
         self._cached_schemas: list[ToolSchema] = []
 
-    def register_server(self, name: str, server: FastMCP) -> None:
-        """Register an MCP server under the given name."""
+    def register_server(self, name: str, server: Any) -> None:
+        """Register an MCP server transport under the given name."""
         self._servers[name] = server
 
     async def initialize(self) -> None:

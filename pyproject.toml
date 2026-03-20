@@ -36,11 +36,8 @@ dependencies = [
     # Logging
     "python-json-logger>=2.0.0",
 
-    # Vector DB & Embeddings (Phase 4)
-    # "chroma-db>=0.3.0",
-    # "sentence-transformers>=2.2.0",
-    # "langchain>=0.0.300",
-    # "sqlalchemy>=2.0.0",
+    # Vector DB for Phase 4 local RAG
+    "chromadb>=1.0.0",
 ]
 
 [project.optional-dependencies]

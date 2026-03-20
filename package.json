@@ -1,0 +1,7 @@
+{
+  "name": "nexus-cli-mcp",
+  "private": true,
+  "devDependencies": {
+    "@modelcontextprotocol/server-filesystem": "^2026.1.14"
+  }
+}

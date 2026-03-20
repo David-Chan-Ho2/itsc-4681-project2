@@ -35,6 +35,7 @@ MANIFEST
 # IDE
 .vscode/
 .idea/
+node_modules/
 *.swp
 *.swo
 *~

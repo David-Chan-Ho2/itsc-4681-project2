@@ -1,8 +1,10 @@
 """Integration tests for Phase 3 - MCP client manager and tool executor."""
 
 import os
-import pytest
+import shutil
 from unittest.mock import AsyncMock, patch
+
+import pytest
 
 from fastmcp import Client
 
@@ -114,6 +116,23 @@ async def test_mcp_manager_multiple_servers(tmp_path):
     tool_names = [s.name for s in manager.get_tool_schemas()]
     assert "read_file" in tool_names
     assert "web_search" in tool_names
+
+
+@pytest.mark.asyncio
+async def test_official_filesystem_config_exposes_tools():
+    """The official filesystem MCP server starts from the registered config."""
+    from nexus.mcp.server_registry import build_official_filesystem_config
+
+    if shutil.which("npx") is None:
+        pytest.skip("npx is required to launch the official filesystem MCP server")
+
+    async with Client(build_official_filesystem_config([os.getcwd()])) as client:
+        tools = await client.list_tools()
+
+    tool_names = [tool.name for tool in tools]
+    assert "read_file" in tool_names
+    assert "write_file" in tool_names
+    assert "list_allowed_directories" in tool_names
 
 
 # ---------------------------------------------------------------------------
