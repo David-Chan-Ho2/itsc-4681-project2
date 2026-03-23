@@ -2,6 +2,7 @@
   "name": "nexus-cli-mcp",
   "private": true,
   "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^11.12.0",
     "@modelcontextprotocol/server-filesystem": "^2026.1.14"
   }
 }
