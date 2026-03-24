@@ -1,0 +1,40 @@
+services:
+  nexus:
+    build:
+      context: .
+      target: runtime
+    image: nexus-cli:latest
+    env_file: .env
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+      FILESYSTEM_ROOTS: /workspace
+    volumes:
+      - nexus_sessions:/app/nexus_sessions
+      - nexus_logs:/app/logs
+      - chroma_db:/app/rag/chroma_db
+      # Mount local workspace so the agent can read/write project files
+      - .:/workspace
+    stdin_open: true
+    tty: true
+    depends_on:
+      ollama:
+        condition: service_healthy
+
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama_models:/root/.ollama
+    ports:
+      - "11434:11434"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+volumes:
+  nexus_sessions:
+  nexus_logs:
+  chroma_db:
+  ollama_models:
